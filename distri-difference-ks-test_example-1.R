@@ -8,7 +8,7 @@
 
 ##
 ## ATTENTION: The following script is tailored to suit a particular example. A more generic script is also available. 
-## Data used here is specific to the generation of Panel A to D of Figure SX in Petty, Ben Zakour et al. 2014.
+## Data used here is specific to the generation of Panel A to D of Figure SX in Petty, Ben Zakour et al. 2014 (submitted).
 ##
 
 
