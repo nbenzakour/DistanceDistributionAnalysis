@@ -167,7 +167,7 @@ sd(D.values)    #sd
 breaks = c(0, 1e-16, 1e-15, 1e-14, 1e-13, 1e-12, 1e-11, 1e-10, 1e-09, 1e-08, 1e-07, 1e-06, 1e-05, 1e-04, 1e-03, 1e-02)
 Pvalues_hist <- hist(P.values,
                      breaks = c(0, 1e-16, 1e-15, 1e-14, 1e-13, 1e-12, 1e-11, 1e-10, 1e-09, 1e-08, 1e-07, 1e-06, 1e-05, 1e-04, 1e-03, 1e-02))
-plot(Pvalues_hist$count, log= "y", type='h', lwd=50, lend=1, lty=1, col="black", xlab="P value", ylab="", xaxt="n")
+plot(Pvalues_hist$count, type='h', lwd=50, lend=1, lty=1, col="black", xlab="P value", ylab="", xaxt="n")
 axis(1,at=0.5:15.5,label=breaks)
 
 # Determine mean and standard deviation for P value  
