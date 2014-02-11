@@ -14,7 +14,7 @@
 
 # 1) input list of N real REC-MGE distances between REC and closest MGE we observed in the object "obs"
 # N=137 <=> 115 non overlapping REC regions + 22 overlapping REC regions
-# distances were previously calculated for all regions
+# real REC-MGE distances were calculated separately
 
 obs <- c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,170801,186128,211084,242215,253014,303737,337461,350992,
          492157,511598,532941,538831,533200,450664,443420,440807,393183,391627,367958,359850,338173,309913,296565,211592,52655,
@@ -25,19 +25,19 @@ obs <- c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,170801
          253884,255604,263169,267865,282022,288138,300438,248507,247666,205767,201703,152115,142401,135613,85017)
 
 
-# 2) generate a random set of N distances with a range (0,D) corresponding to all the possible distances observable between a REC and a MGE.
+# 2) generate a random set of N distances within the range (0,M) corresponding to all the possible distances observable between a REC and a MGE.
 # In other words, we consider the same MGE positions, and we just randomely select REC-MGE distances fitting in the intervals.
-# The maximal value D corresponds to the maximal distance max_REC-MGE a randomly selected REC can be from a real MGE 
-# i.e. D = max_REC-MGE distance between 2 MGEs minus the min REC_size observed, then divided by 2
+# The maximal value M corresponds to the maximal distance max_REC-MGE a randomly selected REC can be from a real MGE 
+# i.e. M = max_REC-MGE distance between 2 MGEs minus the min REC_size observed, then divided by 2
 
 # In this data, the maximal distance observed is between GI-leuX and PHI1, i.e. 1089739 bp, 
 # and the min_REC_size observed is 9 bp
 
 max_REC_MGE <- 1089739                                  # maximal distance observed between 2 MGEs
 min_REC_size <- 9                                       # minimum size of a REC region
-D <- as.integer((max_REC_MGE - min_REC_size)/2)         # maximal distance max_REC-MGE a randomly selected REC can be from a real MGE
+M <- as.integer((max_REC_MGE - min_REC_size)/2)         # maximal distance max_REC-MGE a randomly selected REC can be from a real MGE
 N <- 137                                                # number of REC regions                     
-rand <- as.integer(runif(N,0,D))                        # generates a uniformally distributed list of integers
+rand <- as.integer(runif(N,0,M))                        # generates a uniformally distributed list of integers
 
 
 # Selected representations of the input data
@@ -49,20 +49,21 @@ hist(obs, col=rgb(0,0,1,0.5), xlab="Distance (bp)")
 # 3.2) Generates panel B "Empirical Cumulative Distribution Function Plots for observed vs theoritical uniform distributions"
 
 plot(ecdf(obs), xlim = range(c(obs,rand)), col=rgb(0,0,1,0.5), xlab = "Distance (bp)", ylab = "Cumulative frequency")
-abline(0,1/D, col=rgb(1,0,0,0.5), lwd=3, lty=2)         # theoritical CDF
+abline(0,1/M, col=rgb(1,0,0,0.5), lwd=3, lty=2)         # theoritical CDF
 
 
 # 4) Statistical evaluation of the difference (and possibly direction of difference) between the (obs) and (rand) data
 
 # 4.1) Two-sample Kolmogorov–Smirnov test (K-S test)
 
-    # PRINCIPLE: The Kolmogorov-Smirnov test compares the cumulative distribution of the two data sets, 
+    # PRINCIPLE: The two-sample Kolmogorov-Smirnov test compares the cumulative distribution of two data sets, 
     # and computes a D value and a P value that depend on the largest discrepancy between distributions. 
-    # It is used to test whether two samples are drawn from identical continuous distributions.
+    # It is used to test whether two samples are drawn from an identical continuous distributions.
     # The possible values i) "two.sided", ii) "less" and iii) "greater" of alternatives specify the null hypothesis that 
     # the true distribution function of x is i) equal to, ii) not less than or iii) not greater than the hypothesized distribution function 
     # (one-sample case) or the distribution function of y (two-sample case), respectively. 
-    # It is a non-parametric test that doesn't assume a particular distribution for the data except that it should be continuous.
+    # ADVANTAGE: It is a non-parametric test that doesn't assume a particular distribution for the data 
+    # except that it should be continuous.
     # CAUTION: ties are not handled, unless data is resampled.
 
 # K-S test without data resampling for preliminary hypothesis testing
@@ -84,7 +85,7 @@ D.values = numeric(R)                                   # to store the D value r
 P.values = numeric(R)                                   # to store the P value results
 for(i in 1:R) { 
   obsS = sample(obs, size=N, replace=T)                 # obs data resampling
-  randS = as.integer(runif(N,0,D))                      # random data resamling
+  randS = as.integer(runif(N,0,M))                      # random data resamling
   kstest <- ks.test(obsS,randS,alternative="greater")   # K-S test
   D.values[i] = kstest$statistic                        # D value stored
   P.values[i] = kstest$p.value                          # P value stored
