@@ -4,7 +4,7 @@
 ## Affiliations: University of Queensland
 ##
 
-## PURPOSE: Statitical evaluation of the distribution bias of distances between RECs regions and MGEs
+## PURPOSE: Statistical evaluation of the distribution bias of distances between RECs regions and MGEs
 
 ##
 ## ATTENTION: The following script is tailored to suit a particular example. A more generic script is also available. 
