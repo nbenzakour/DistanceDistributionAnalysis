@@ -27,15 +27,15 @@ obs <- c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,170801
 
 # 2) generate a random set of N distances within the range (0,M) corresponding to all the possible distances observable between a REC and a MGE.
 # In other words, we consider the same MGE positions, and we just randomely select REC-MGE distances fitting in the intervals.
-# The maximal value M corresponds to the maximal distance max_REC-MGE a randomly selected REC can be from a real MGE 
-# i.e. M = max_REC-MGE distance between 2 MGEs minus the min REC_size observed, then divided by 2
+# The maximal value M corresponds to the maximal distance a randomly selected REC can be from a real MGE 
+# i.e. M = max_MGE-MGE distance between 2 MGEs minus the min REC_size observed, then divided by 2
 
 # In this data, the maximal distance observed is between GI-leuX and PHI1, i.e. 1089739 bp, 
 # and the min_REC_size observed is 9 bp
 
-max_REC_MGE <- 1089739                                  # maximal distance observed between 2 MGEs
+max_MGE_MGE <- 1089739                                  # maximal distance observed between 2 MGEs
 min_REC_size <- 9                                       # minimum size of a REC region
-M <- as.integer((max_REC_MGE - min_REC_size)/2)         # maximal distance max_REC-MGE a randomly selected REC can be from a real MGE
+M <- as.integer((max_MGE_MGE - min_REC_size)/2)         # maximal distance a randomly selected REC can be from a real MGE
 N <- 137                                                # number of REC regions                     
 rand <- as.integer(runif(N,0,M))                        # generates a uniformally distributed list of integers
 
