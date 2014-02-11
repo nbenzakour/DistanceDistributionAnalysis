@@ -6,8 +6,12 @@ and non-parametric tests.
 
 Scripts available:
 
+    # distri-difference-generic.R: available now - still requires a bit of editing
     # distri-difference-ks-test_example-1.R: adapted to a particular case
-    # distri-difference-generic.R: available soon
+
+Figures available:
+
+    # distri-difference-ks-test_example-1_Figure.tif
 
 
 STRATEGY: considering the set of observed distances between 2 categories of genomic regions 
